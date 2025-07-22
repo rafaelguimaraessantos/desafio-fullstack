@@ -98,13 +98,13 @@ export const Home = () => {
           </div>
         )}
 
-        {/* Plans */}
-        <div className="mb-8">
+        {/* Plans Section with Gray Background */}
+        <div className="py-10 px-6 rounded-lg mb-8" style={{ backgroundColor: 'rgb(237, 236, 236)' }}>
           <h2 className="text-2xl font-semibold mb-6 text-center">
             {activeContract ? 'Trocar de Plano' : 'Escolha seu Plano'}
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {plans.map((plan) => (
               <PlanCard
                 key={plan.id}
