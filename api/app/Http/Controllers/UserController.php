@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
     /**
      * Display the resource.
      *
@@ -15,6 +14,12 @@ class UserController extends Controller
      */
     public function show()
     {
-        return User::find(1);
+        $user = User::find(1);
+        $activeContract = $user->activeContract();
+        
+        return response()->json([
+            'user' => $user,
+            'active_contract' => $activeContract
+        ]);
     }
 }
