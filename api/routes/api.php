@@ -26,3 +26,13 @@ Route::get('/', function () {
 Route::apiResource('plans', PlanController::class, ['only' => 'index']);
 
 Route::apiSingleton('user', UserController::class, ['only' => 'show']);
+
+// Contract routes
+Route::post('contracts', [App\Http\Controllers\ContractController::class, 'store']);
+Route::get('contracts/{userId}', [App\Http\Controllers\ContractController::class, 'show']);
+Route::get('contracts/{userId}/history', [App\Http\Controllers\ContractController::class, 'history']);
+
+// Payment routes
+Route::post('payments/pix', [App\Http\Controllers\PaymentController::class, 'generatePix']);
+Route::post('payments/confirm', [App\Http\Controllers\PaymentController::class, 'confirmPayment']);
+Route::get('payments/{paymentId}', [App\Http\Controllers\PaymentController::class, 'show']);
