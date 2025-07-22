@@ -1,9 +1,49 @@
 services:
   postgresql:
     image: "postgres"
+    container_name: laravel_postgres
     ports:
       - "5432:5432"
     environment:
       - "POSTGRES_DB=desafio"
       - "POSTGRES_USER=user"
       - "POSTGRES_PASSWORD=password"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: ../api
+      dockerfile: Dockerfile
+    container_name: laravel_api
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ../api:/var/www
+    depends_on:
+      - postgresql
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ../api:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
