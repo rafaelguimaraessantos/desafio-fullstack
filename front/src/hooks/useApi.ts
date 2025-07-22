@@ -55,22 +55,24 @@ export function useContractHistory(userId: number) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchHistory() {
-      if (!userId) return;
-      
-      try {
-        const data = await api.getContractHistory(userId);
-        setContracts(data);
-      } catch (err) {
-        setError('Erro ao carregar histórico');
-      } finally {
-        setLoading(false);
-      }
+  const fetchHistory = async () => {
+    if (!userId) return;
+    
+    try {
+      setLoading(true);
+      const data = await api.getContractHistory(userId);
+      setContracts(data);
+      setError(null);
+    } catch (err) {
+      setError('Erro ao carregar histórico');
+    } finally {
+      setLoading(false);
     }
+  };
 
+  useEffect(() => {
     fetchHistory();
   }, [userId]);
 
-  return { contracts, loading, error };
+  return { contracts, loading, error, refetch: fetchHistory };
 }

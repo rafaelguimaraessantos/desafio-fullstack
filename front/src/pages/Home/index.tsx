@@ -7,7 +7,7 @@ import { api } from '../../services/api';
 export const Home = () => {
   const { plans, loading: plansLoading } = usePlans();
   const { user, activeContract, loading: userLoading, refetch: refetchUser } = useUser();
-  const { contracts } = useContractHistory(user?.id || 0);
+  const { contracts, refetch: refetchHistory } = useContractHistory(user?.id || 0);
   
   const [selectedPlan, setSelectedPlan] = useState<number | null>(null);
   const [paymentModal, setPaymentModal] = useState<{
@@ -46,6 +46,7 @@ export const Home = () => {
 
   const handlePaymentConfirmed = () => {
     refetchUser();
+    refetchHistory();
   };
 
   if (plansLoading || userLoading) {
