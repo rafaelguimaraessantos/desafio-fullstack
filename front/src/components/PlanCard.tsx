@@ -25,6 +25,7 @@ export function PlanCard({ plan, isActive, onSelect, disabled }: PlanCardProps) 
         boxShadow: '0 0 0 4px rgb(5, 188, 4)' 
       } : {}}
       onClick={handleCardClick}
+      title={isActive ? 'Plano atual' : ''}
     >
       {/* Header laranja */}
       <div className="pl-0 pr-4 pt-6 pb-4">

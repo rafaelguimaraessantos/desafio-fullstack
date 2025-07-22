@@ -72,6 +72,7 @@ class ContractController extends Controller
         $user = User::find($userId);
         $contracts = $user->contracts()
             ->with(['plan', 'payments'])
+            ->orderBy('active', 'desc')
             ->orderBy('created_at', 'desc')
             ->get();
 
