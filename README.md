@@ -2,18 +2,99 @@
   <img alt="Desafio Full-stackt" title="Desafio Full-stack" src="https://garantia.inmediam.com.br//assets/logoInmediamCores-bc0eeaaa.svg" width="20%" />
 </div>
 <h1 align="center">
-    Desafio Full-stack
+    Desafio Full-stack - Sistema de Assinatura de Planos
 </h1>
 
 <p align="center">
+  <a href="#-como-executar-o-projeto">Como Executar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#descrição-do-desafio">Descrição do Desafio</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#tarefas">Tarefas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-configuração-do-ambiente">Configuração do ambiente</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#extras">Extras</a>
+  <a href="#-tecnologias-utilizadas">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-funcionalidades-implementadas">Funcionalidades</a>
 </p>
 
-### Por favor, faça fork desse repositório para iniciar o exercício!
-### Tempo máximo esperado para resolução: 7 dias
+## 🚀 Como Executar o Projeto
+
+### Pré-requisitos
+- Docker e Docker Compose instalados
+- Node.js (versão 16 ou superior)
+- Git
+
+### 1️⃣ Clonar o Repositório
+```bash
+git clone https://github.com/rafaelguimaraessantos/desafio-fullstack
+cd desafio-fullstack
+```
+
+### 2️⃣ Configurar e Executar o Backend
+
+#### Subir os containers Docker:
+```bash
+cd db
+docker compose up -d
+```
+
+#### Gerar chave da aplicação Laravel (primeira execução):
+```bash
+docker compose exec api php artisan key:generate
+```
+
+#### Executar as migrations:
+```bash
+docker compose exec api php artisan migrate
+```
+
+#### Executar os seeders:
+```bash
+docker compose exec api php artisan db:seed
+```
+
+#### Testar a API:
+```bash
+curl http://localhost:8000/api/user
+curl http://localhost:8000/api/plans
+```
+
+### 3️⃣ Configurar e Executar o Frontend
+
+#### Em um novo terminal, navegar para a pasta do frontend:
+```bash
+cd front
+```
+
+#### Instalar dependências:
+```bash
+npm install
+```
+
+#### Configurar variáveis de ambiente:
+```bash
+# Copiar arquivo de exemplo
+copy .env.example .env
+
+# Editar o arquivo .env e adicionar:
+VITE_API_URL=http://localhost:8000/api
+```
+
+#### Executar o frontend:
+```bash
+npm run dev
+```
+
+### 4️⃣ Acessar a Aplicação
+
+- **Frontend:** http://localhost:5173
+- **API:** http://localhost:8000/api
+- **Banco de dados:** localhost:5432
+
+### 🧪 Executar Testes
+
+```bash
+cd db
+docker compose exec api php artisan test
+```
+
+---
 
 ## Descrição do Desafio
 
