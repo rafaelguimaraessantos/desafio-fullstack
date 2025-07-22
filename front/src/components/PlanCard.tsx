@@ -8,8 +8,24 @@ interface PlanCardProps {
 }
 
 export function PlanCard({ plan, isActive, onSelect, disabled }: PlanCardProps) {
+  const handleCardClick = () => {
+    if (!disabled && !isActive) {
+      onSelect(plan.id);
+    }
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
+    <div 
+      className={`bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-all cursor-pointer ${
+        disabled 
+          ? 'cursor-not-allowed ' 
+          : 'hover:shadow-lg hover:scale-105'
+      }`}
+      style={isActive ? { 
+        boxShadow: '0 0 0 4px rgb(5, 188, 4)' 
+      } : {}}
+      onClick={handleCardClick}
+    >
       {/* Header laranja */}
       <div className="pl-0 pr-4 pt-6 pb-4">
         <div className="bg-orange-500 text-white p-4 min-h-[80px] flex items-center mr-6">
@@ -42,26 +58,7 @@ export function PlanCard({ plan, isActive, onSelect, disabled }: PlanCardProps) 
           </p>
         </div>
         
-        {/* Botão */}
-        <div className="mt-auto">
-          {isActive ? (
-            <div className="bg-blue-500 text-white text-center py-3 px-4 rounded font-medium">
-              Plano Atual
-            </div>
-          ) : (
-            <button
-              onClick={() => onSelect(plan.id)}
-              disabled={disabled}
-              className={`w-full py-3 px-4 rounded font-medium transition-colors ${
-                disabled
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-orange-500 hover:bg-orange-600 text-white'
-              }`}
-            >
-              {disabled ? 'Processando...' : 'Selecionar Plano'}
-            </button>
-          )}
-        </div>
+
       </div>
     </div>
   );
