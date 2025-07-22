@@ -39,7 +39,7 @@ class ContractController extends Controller
         $paymentAmount = $this->calculatePaymentAmount($activeContract, $plan);
 
         // Criar pagamento
-        Payment::create([
+        $payment = Payment::create([
             'contract_id' => $contract->id,
             'amount' => $paymentAmount['amount'],
             'discount' => $paymentAmount['discount'],
@@ -49,6 +49,7 @@ class ContractController extends Controller
 
         return response()->json([
             'contract' => $contract->load('plan'),
+            'payment_id' => $payment->id,
             'payment_amount' => $paymentAmount['amount'],
             'discount' => $paymentAmount['discount'],
         ]);

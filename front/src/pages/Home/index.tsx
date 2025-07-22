@@ -29,14 +29,11 @@ export const Home = () => {
     setProcessing(true);
     try {
       const result = await api.createContract(planId, user.id);
-      
-      // Simular que temos um payment_id (normalmente viria da resposta)
-      const paymentId = Date.now(); // Simulação
       const selectedPlanData = plans.find(p => p.id === planId);
       
       setPaymentModal({
         isOpen: true,
-        paymentId,
+        paymentId: result.payment_id,
         amount: result.payment_amount || selectedPlanData?.price || '0',
         planDescription: selectedPlanData?.description || '',
       });
